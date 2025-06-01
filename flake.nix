@@ -32,7 +32,7 @@
   }:
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [shelly.flakeModule];
-      systems = ["x86_64-linux" "aarch64-linux" "armv7l-linux" "armv6l-linux" "mingw-w64" "x86_64-darwin"];
+      systems = ["x86_64-linux" "aarch64-linux" "armv7l-linux" "armv6l-linux" "mingw-w64" "x86_64-darwin" "aarch64-darwin"];
       perSystem = {
         config,
         system,
