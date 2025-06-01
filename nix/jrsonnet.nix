@@ -5,6 +5,7 @@
   withNightlyFeatures ? false,
   withExperimentalFeatures ? false,
   forBenchmarks ? false,
+  withMimalloc ? false,
 }:
 with lib;
   craneLib.buildPackage {
@@ -17,7 +18,11 @@ with lib;
     pname = "jrsonnet";
     version = "current${optionalString withNightlyFeatures "-nightly"}${optionalString withExperimentalFeatures "-experimental"}";
 
-    cargoExtraArgs = "--locked --features=mimalloc${optionalString withNightlyFeatures ",nightly"}${optionalString withExperimentalFeatures ",experimental"}";
+    cargoExtraArgs ="--locked --features=" + lib.strings.concatStringsSep "," [
+      (optionalString withMimalloc "mimalloc")
+      (optionalString withNightlyFeatures "nightly")
+      (optionalString withExperimentalFeatures "experimental")
+    ];
 
     nativeBuildInputs = [makeWrapper];
 
